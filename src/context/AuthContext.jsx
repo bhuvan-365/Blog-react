@@ -15,7 +15,8 @@ export const AuthProvider = ({ children }) => {
 
   const login = () => {
     setIsAdmin(true);
-    Cookies.set('admin-token', 'secure-auth-token', { expires: 1 / 24 }); // 1 hour expiry
+    const oneHourFromNow = new Date(new Date().getTime() + 60 * 60 * 1000); // 1 hour ahead
+    Cookies.set('admin-token', 'secure-auth-token', { expires: oneHourFromNow });
   };
 
   const logout = () => {

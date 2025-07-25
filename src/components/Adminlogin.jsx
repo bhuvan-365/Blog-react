@@ -6,7 +6,7 @@ const AdminLogin = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAdmin } = useAuth(); // get isAdmin here
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -20,6 +20,10 @@ const AdminLogin = () => {
     } else {
       alert('Invalid username or password');
     }
+  };
+
+  const handleContinueWithoutLogin = () => {
+    navigate('/dashboard');
   };
 
   return (
@@ -55,6 +59,16 @@ const AdminLogin = () => {
             Login
           </button>
         </form>
+
+        {/* Show this button only if isAdmin is true (cookie exists) */}
+        {isAdmin && (
+          <button
+            onClick={handleContinueWithoutLogin}
+            className="w-full mt-3 bg-green-600 text-white py-2 rounded-md text-sm font-medium hover:bg-green-700 transition"
+          >
+            Continue without login
+          </button>
+        )}
       </div>
     </div>
   );
