@@ -7,7 +7,17 @@ const Dashboard = () => {
   const { logout } = useAuth();
   const navigate = useNavigate();
 
-  const [blogs, setBlogs] = useState([]);
+  // Initialize state directly from localStorage
+  const [blogs, setBlogs] = useState(() => {
+    try {
+      const storedBlogs = localStorage.getItem('blogs');
+      return storedBlogs ? JSON.parse(storedBlogs) : [];
+    } catch (error) {
+      console.error('Error parsing blogs from localStorage:', error);
+      return [];
+    }
+  });
+
   const [formData, setFormData] = useState({
     img: '',
     title: '',
@@ -17,28 +27,39 @@ const Dashboard = () => {
   });
   const [editIndex, setEditIndex] = useState(null);
 
-  // Load blogs from localStorage on mount
+  // Save blogs to localStorage whenever they change
   useEffect(() => {
-    const storedBlogs = localStorage.getItem('blogs');
-    if (storedBlogs) {
+    const saveBlogs = () => {
       try {
-        setBlogs(JSON.parse(storedBlogs));
-      } catch {
-        setBlogs([]);
+        localStorage.setItem('blogs', JSON.stringify(blogs));
+      } catch (error) {
+        console.error('Failed to save blogs to localStorage:', error);
       }
-    }
-  }, []);
+    };
 
-  // Save blogs to localStorage whenever blogs change
-  useEffect(() => {
-    localStorage.setItem('blogs', JSON.stringify(blogs));
+    saveBlogs();
   }, [blogs]);
+
+  // Handle storage events from other tabs
+  useEffect(() => {
+    const handleStorageChange = (e) => {
+      if (e.key === 'blogs') {
+        try {
+          setBlogs(e.newValue ? JSON.parse(e.newValue) : []);
+        } catch (error) {
+          console.error('Error parsing updated blogs:', error);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  // Use base64 for image instead of URL.createObjectURL
   const onDrop = (acceptedFiles) => {
     const file = acceptedFiles[0];
     const reader = new FileReader();
@@ -98,10 +119,9 @@ const Dashboard = () => {
     }
   };
 
-  // Updated logout handler with redirect
   const handleLogout = () => {
-    logout();         // remove auth cookie and set isAdmin false
-    navigate('/admin'); // redirect to admin login page
+    logout();
+    navigate('/admin');
   };
 
   return (
@@ -174,23 +194,13 @@ const Dashboard = () => {
             </button>
           </form>
 
-          {/* Logout Button with redirect */}
+          {/* Logout Button */}
           <button
             onClick={handleLogout}
-            className="text-center text-red-600 px-4 py-2 rounded mt-4 hover:bg-red-700 transition"
+            className="w-full mt-4 bg-red-600 text-white py-2 rounded-md hover:bg-red-700 text-xs md:text-sm font-medium"
           >
             Logout
           </button>
-
-          {/* <button
-            onClick={() => {
-              localStorage.removeItem('blogs');
-              setBlogs([]);
-            }}
-            className="text-sm text-gray-500 underline mt-2"
-          >
-            Clear All Blogs
-          </button> */}
         </div>
 
         {/* Blog List */}
