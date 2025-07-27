@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 
-const AdminLogin = () => {
+const adminlogin = () => {
   const usernameRef = useRef();
   const passwordRef = useRef();
   const navigate = useNavigate();
@@ -74,4 +74,4 @@ const AdminLogin = () => {
   );
 };
 
-export default AdminLogin;
+export default adminlogin;
