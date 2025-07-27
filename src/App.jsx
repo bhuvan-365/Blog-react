@@ -1,7 +1,7 @@
 
 import Navbar from './components/navbar';
 import './App.css';
-import AdminLogin from './components/adminlogin'; 
+import AdminLogin from './components/Adminlogin'; 
 import Dashboard from './components/Dashboard'; 
 import ProtectedRoute from './ProtectedRoute';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
