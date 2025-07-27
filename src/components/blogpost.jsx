@@ -28,7 +28,17 @@ const Blogpost = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 md:p-10 flex flex-col gap-10">
       {blogs.length === 0 ? (
-        <p className="text-gray-600 text-center">No blogs available.</p>
+        <p className="text-gray-600 ">
+          <h1 className='text-2xl text-center'>Guide:</h1>
+          <p>The app has two views:
+            <br />
+            i. User View (default homepage): shows all blogs from localStorage.
+            <br />
+            ii. Admin View: accessible via /admin, where the admin logs in using admin / admin.
+            <br />
+            <br />
+            After login, the admin is redirected to the dashboard to add or manage blogs. A cookie keeps the admin logged in for 1 hour, allowing direct access to the dashboard without re-login. Blogs are stored in localStorage and shown on the homepage.</p>
+        </p>
       ) : (
         blogs.map((blog, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-6">
@@ -78,9 +88,8 @@ const Blogpost = () => {
                     key={star}
                     onClick={() => setRating(star)}
                     type="button"
-                    className={`text-3xl ${
-                      rating >= star ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
-                    } transition-colors`}
+                    className={`text-3xl ${rating >= star ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-400'
+                      } transition-colors`}
                   >
                     ★
                   </button>
