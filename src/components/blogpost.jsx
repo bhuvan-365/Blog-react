@@ -28,7 +28,7 @@ const Blogpost = () => {
   return (
     <div className="max-w-5xl mx-auto p-6 md:p-10 flex flex-col gap-10">
       {blogs.length === 0 ? (
-        <p className="text-gray-600 ">
+        <div className="text-gray-600 ">
           <h1 className='text-2xl text-center'>Guide:</h1>
           <p>The app has two views:
             <br />
@@ -38,7 +38,7 @@ const Blogpost = () => {
             <br />
             <br />
             After login, the admin is redirected to the dashboard to add or manage blogs. A cookie keeps the admin logged in for 1 hour, allowing direct access to the dashboard without re-login. Blogs are stored in localStorage and shown on the homepage.</p>
-        </p>
+        </div>
       ) : (
         blogs.map((blog, index) => (
           <div key={index} className="bg-white rounded-lg shadow-md p-6 flex flex-col gap-6">

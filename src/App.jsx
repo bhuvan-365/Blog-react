@@ -3,7 +3,7 @@ import reactLogo from './assets/react.svg';
 import viteLogo from '/vite.svg';
 import Navbar from './components/navbar';
 import './App.css';
-import AdminLogin from './components/Adminlogin'; 
+import AdminLogin from './components/adminlogin'; 
 import Dashboard from './components/Dashboard'; 
 import ProtectedRoute from './ProtectedRoute';
 
