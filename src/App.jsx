@@ -6,7 +6,6 @@ import './App.css';
 import AdminLogin from './components/adminlogin'; 
 import Dashboard from './components/Dashboard'; 
 import ProtectedRoute from './ProtectedRoute';
-
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Home from './components/home';
@@ -18,9 +17,7 @@ import { AuthProvider } from './context/AuthContext';
 
 function App() {
 
-    useEffect(() => {
-    alert(' first interface is of public user , for admin , put /admin on website url , then enter admin , admin login to dashboard from where admin added blog which store in localstorage and in home page added blog will be available , and unlessadmin log out from dashbord cookie available which mean youcan straight log in in adminlogin page for 1hr ');
-  }, []);
+ 
 
   return (
     
